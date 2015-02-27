@@ -10,13 +10,13 @@ app.use(bodyParser());
 
 mongoose.connect('mongodb://localhost/applicants');
 
-var applicant = mongoose.model('applicant', { 
-										name: String,
-										bio: String,
-										skills: String,
-										years: Number,
-										why: String
-										});
+var Applicant = mongoose.model('Applicant', {   //Good convention uppercase model
+	name: String,																	//dont forget to update the rest of my app.js
+	bio: String,
+	skills: String,
+	years: Number,
+	why: String
+});
 
 app.get('/', function(req, res) {
 	res.render('index');
@@ -40,13 +40,14 @@ app.post('/applicant', function(req, res){
 	// Here is where you need to get the data
 	// from the post body and store it in the database
 	console.log(req.body);
-	var person = new applicant(req.body);
+	var person = new Applicant(req.body);
 	person.save(function (err) {
 		if (err)
-			console.log('No good try again');
+			console.log('No good try again');		//console.log the error itself
 	});
 	// console.log(req.body);
-	res.redirect('applicants');
+	res.redirect('applicants');			// move into person.save function its redirecting
+																	//befor save
 });
 
 var server = app.listen(8441, function() {

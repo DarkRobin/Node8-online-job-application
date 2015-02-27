@@ -15,7 +15,8 @@ var applicant = mongoose.model('applicant', {
 										bio: String,
 										skills: String,
 										years: Number,
-										why: String});
+										why: String
+										});
 
 app.get('/', function(req, res) {
 	res.render('index');
@@ -23,24 +24,29 @@ app.get('/', function(req, res) {
 
 // displays a list of applicants
 app.get('/applicants', function(req, res){
-	res.render('applicants')
+	applicant.find({}, function(err, results){
+			if(err)
+				console.log('Sorry no applicants.');
+			else
+				console.log('Results: ', results);
+				res.render('applicants',{'applicants': results});
+	});
+
 });
-app.get('/success', function(req, res){
-	res.render('success')
-});
+
 
 // creates and applicant
 app.post('/applicant', function(req, res){
 	// Here is where you need to get the data
 	// from the post body and store it in the database
-
-	var person = new applicant({ name: req.body.name});
+	console.log(req.body);
+	var person = new applicant(req.body);
 	person.save(function (err) {
 		if (err)
 			console.log('No good try again');
 	});
-	console.log(req.body);
-	res.redirect('success');
+	// console.log(req.body);
+	res.redirect('applicants');
 });
 
 var server = app.listen(8441, function() {

@@ -24,12 +24,14 @@ app.get('/', function(req, res) {
 
 // displays a list of applicants
 app.get('/applicants', function(req, res){
-	applicant.find({}, function(err, results){
-			if(err)
+	Applicant.find({}, function(err, results){
+			if(err){
 				console.log('Sorry no applicants.');
-			else
+			}
+			else{
 				console.log('Results: ', results);
 				res.render('applicants',{'applicants': results});
+			}
 	});
 
 });
@@ -42,11 +44,14 @@ app.post('/applicant', function(req, res){
 	console.log(req.body);
 	var person = new Applicant(req.body);
 	person.save(function (err) {
-		if (err)
-			console.log('No good try again');		//console.log the error itself
+		if (err){
+			console.log('The person did NOT save');		//console.log the error itself
+		}
+		else{
+			res.redirect('applicants');			// move into person.save function its redirecting
+		}
 	});
 	// console.log(req.body);
-	res.redirect('applicants');			// move into person.save function its redirecting
 																	//befor save
 });
 

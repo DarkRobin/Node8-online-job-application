@@ -5,8 +5,11 @@ block content
 		h1 Applicants
 		ul#applications.list-unstyled 
 			for applicant in applicants
-				li= 'Name: ' + applicant.name   //-use insted Li name: #{applicant.name}
-				li= 'Bio: ' + applicant.bio
-				li= 'Skills: ' + applicant.skills
-				li= 'Years: ' + applicant.years
-				li= 'Why: ' + applicant.why
+				li Name: #{applicant.name}   
+				li Bio: #{applicant.bio}
+				li Skills: #{applicant.skills}
+				li Years: #{applicant.years}
+				li Why: #{applicant.why}
+
+
+//-use insted Li name: #{applicant.name}
